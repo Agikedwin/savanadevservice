@@ -29,10 +29,11 @@ jobs:
         run:
           pip install flake8
           flake8
-      - name: Coverage report and pytest
-        run:
-          pytest --cov=sales --cov-report=term-missing
-          pytest --cov=sales --cov-report=html
+      - name: Run tests with term report
+        run: pytest --cov=sales --cov-report=term-missing
+
+      - name: Run tests with HTML report
+        run: pytest --cov=sales --cov-report
 
       - name: Savana application run tests
         run:
