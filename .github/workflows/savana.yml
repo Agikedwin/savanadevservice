@@ -32,9 +32,6 @@ jobs:
       - name: Run tests with term report
         run: pytest --cov=sales --cov-report=term-missing
 
-      - name: Run tests with HTML report
-        run: pytest --cov=sales --cov-report
-
       - name: Savana application run tests
         run:
           pytest
