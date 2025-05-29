@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 
 from django.conf.global_settings import AUTHENTICATION_BACKENDS, EMAIL_BACKEND
 
@@ -95,6 +96,7 @@ DATABASES = {
         'PORT':'5432'
     }
 """
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -104,6 +106,15 @@ DATABASES = {
         'HOST':'localhost',
         'PORT':'5432'
     }
+}
+"""
+
+DATABASES = {
+    'default': dj_database_url.config(
+        default='postgresql://neondb_owner:npg_GUb19cMAuZPQ@ep-ancient-dream-a63dcbrw-pooler.us-west-2.aws.neon.tech/savanadb?sslmode=require',
+        conn_max_age=600,
+        ssl_require=True  # Important: Neon requires SSL
+    )
 }
 
 

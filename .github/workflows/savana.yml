@@ -18,23 +18,22 @@ jobs:
         with:
             python-version: '3.12'
 
-      - name: Install all dependencies
-        run:
+      - name: Install dependencies
+        run: |
           python3 -m pip install --upgrade pip
-          pip install -r requirements.text
+          pip install -r requirements.txt
           pip install coverage 
-          pip install pytest pytest-django
+          pip install  pytest-django
 
       - name: Lint with flake8
         run:
           pip install flake8
           flake8
-      - name: Coverage report and pytest
-        run:
-          pip install coverage
-          pip install pytest pytest-django
-          coverage run manage.py test
-          pytest --cov=sales --cov-report
+      - name: Run tests with term report
+        run: pytest --cov=sales --cov-report=term-missing
+
+      - name: Run tests with HTML report
+        run: pytest --cov=sales --cov-report
 
       - name: Savana application run tests
         run:
