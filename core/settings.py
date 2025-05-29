@@ -114,7 +114,12 @@ DATABASES = {
         default='postgresql://neondb_owner:npg_GUb19cMAuZPQ@ep-ancient-dream-a63dcbrw-pooler.us-west-2.aws.neon.tech/savanadb?sslmode=require',
         conn_max_age=600,
         ssl_require=True  # Important: Neon requires SSL
-    )
+    ),
+
+}
+# Add test config inside the default DB
+DATABASES['default']['TEST'] = {
+    'NAME': 'test_savanadb',  # This DB must already exist in Neon
 }
 
 
