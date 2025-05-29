@@ -31,10 +31,8 @@ jobs:
           flake8
       - name: Coverage report and pytest
         run:
-          pip install coverage
-          pip install pytest pytest-django
-          coverage run manage.py test
-          pytest --cov=sales --cov-report
+          pytest --cov=sales --cov-report=term-missing
+          pytest --cov=sales --cov-report=html
 
       - name: Savana application run tests
         run:
