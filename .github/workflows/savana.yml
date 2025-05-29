@@ -16,13 +16,14 @@ jobs:
       - name: Set up python latest
         uses: actions/setup-python@v4
         with:
-            python-version: '3.11'
+            python-version: '3.12'
 
-      - name: Install all dependencies
-        run:
+      - name: Install dependencies
+        run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
-          
+          pip install coverage 
+          pip install  pytest-django
 
       - name: Lint with flake8
         run:
