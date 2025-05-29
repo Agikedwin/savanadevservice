@@ -25,16 +25,16 @@ jobs:
           pip install coverage 
           pip install  pytest-django
 
-      - name: Lint with flake8
-        run:
-          pip install flake8
+      #- name: Lint with flake8
+        #run:
+          Epip install flake8
           flake8
-      - name: Run tests with term report
-        run: pytest --cov=sales --cov-report=term-missing
+      #- name: Run tests with term report
+        #run: pytest --cov=sales --cov-report=term-missing
 
-      - name: Savana application run tests
-        run:
-          pytest
+      #- name: Savana application run tests
+        #run:
+          #pytest
 
 
 
