@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+
+  devops-app:
+    image: edvinag73/savanaapp:latest
+    mem_reservation: 700m
+    ports:
+      - 8000:8000
+
+
