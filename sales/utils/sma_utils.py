@@ -1,4 +1,4 @@
-import  africastalking
+import africastalking
 from django.conf import settings
 
 africastalking.initialize(
@@ -7,6 +7,7 @@ africastalking.initialize(
 )
 
 sms = africastalking.SMS
+
 
 def send_sms(to_number, message):
     try:

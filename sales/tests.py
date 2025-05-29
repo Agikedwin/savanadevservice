@@ -1,3 +1,7 @@
-from django.test import TestCase
 
-# Create your tests here.
+
+from sales.test.models import test_model
+
+
+class TestModes1(test_model.TestModels):
+    pass

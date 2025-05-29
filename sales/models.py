@@ -4,7 +4,7 @@ from django.db.models import DateTimeField
 
 # Create your models here.
 class Users(models.Model):
-    user_id = models.AutoField(primary_key = True)
+    user_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
     password = models.TextField()
@@ -12,10 +12,10 @@ class Users(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return str(self.user_id)
+        return self.name
 
 class Customers(models.Model):
-    customer_id = models.AutoField(primary_key = True)
+    customer_id = models.AutoField(primary_key=True)
     customer_name = models.CharField(max_length=255)
     customer_contact = models.CharField(max_length=13)
     customer_email = models.EmailField()
@@ -25,12 +25,12 @@ class Customers(models.Model):
         Users, on_delete=models.CASCADE
     )
 
-
     def __str__(self):
         return str(self.customer_id)
 
+
 class ProductCategory(models.Model):
-    category_id =models.AutoField(primary_key = True)
+    category_id = models.AutoField(primary_key=True)
     category_name = models.CharField(max_length=255)
     category_type = models.CharField(max_length=255)
     description = models.TextField()
@@ -41,6 +41,7 @@ class ProductCategory(models.Model):
 
     def __str__(self):
         return str(self.category_id)
+
 
 class Products(models.Model):
     product_id = models.AutoField(primary_key=True)
@@ -57,6 +58,7 @@ class Products(models.Model):
     def __str__(self):
         return str(self.product_id)
 
+
 class Orders(models.Model):
     order_id = models.AutoField(primary_key=True)
     product = models.ForeignKey(
@@ -72,5 +74,3 @@ class Orders(models.Model):
 
     def __str__(self):
         return str(self.order_id)
-
-
