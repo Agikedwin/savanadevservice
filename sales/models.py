@@ -12,7 +12,7 @@ class Users(models.Model):
     description = models.TextField()
 
     def __str__(self):
-        return self.name
+        return str(self.user_id)
 
 class Customers(models.Model):
     customer_id = models.AutoField(primary_key=True)
