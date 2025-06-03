@@ -170,6 +170,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'agikedwin@gmail.com'
 EMAIL_HOST_PASSWORD = 'dpbp avql kftq emle'  # Not your Gmail password!
 
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.49.2']
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/

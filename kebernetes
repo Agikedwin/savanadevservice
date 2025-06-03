@@ -1,0 +1,23 @@
+https://www.youtube.com/watch?v=NAOsLaB6Lfc
+
+https://www.youtube.com/watch?v=95zmJnz4iOo
+
+
+sudo usermod -aG docker $USER && newgrp docker
+minikube start --driver=docker
+minikube dashboard
+
+--------------
+kubectl apply -k deploy/
+kubectl get deployments
+kubectl get pods
+
+
+
+kubectl run savanademo --image=edvinag73/savanaapp:latest --port=80
+kubectl get po
+kubectl expose pod savanademo --name=savanademosvc --port=80
+
+
+GOOD
+https://www.youtube.com/watch?v=fw0KXPLFFgs

@@ -1,0 +1,93 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: savana
+  labels:  # corrected from "lables"
+    app: savana
+spec:
+  ports:
+    - port: 8000
+  selector:
+    app: savana
+    tier: app
+  type: LoadBalancer  # fixed indentation
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: savana-app-pvc
+  labels:
+    app: savana
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+
+---
+apiVersion: apps/v1
+kind: Deployment  # corrected from "Deployments"
+metadata:
+  name: savana
+  labels:
+    app: savana
+spec:
+  selector:
+    matchLabels:
+      app: savana
+      tier: app
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: savana
+        tier: app
+    spec:
+      volumes:
+        - name: savana-app-data  # volume needs a name
+          persistentVolumeClaim:
+            claimName: savana-app-pvc
+      containers:
+        - name: app
+          image: edvinag73/savanaapp:latest
+          # imagePullPolicy: Never  # uncomment for local image testing
+          volumeMounts:  # corrected from "volumeMount"
+            - name: savana-app-data
+              mountPath: /vol/web
+          env:
+            - name: DB_HOST
+              value: savana-postgres
+            - name: DB_NAME
+              value: savanadb
+            - name: DB_USER
+              value: postgres
+            - name: ALLOWED_HOSTS
+              value: '127.0.0.1,localhost,192.168.49.2'
+            - name: DB_PASS
+              valueFrom:
+                secretKeyRef:  # corrected from "secreteKeyRef"
+                  name: db-password
+                  key: password
+            - name: SECRETE_KEY
+              valueFrom:
+                secretKeyRef:  # corrected from "secreteKeyRef"
+                  name: savana
+                  key: secrete
+
+        - name: proxy
+          image: nginx  # added valid image value
+          # imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+              name: proxy
+          volumeMounts:
+            - name: savana-app-data
+              mountPath: /vol/web
+          env:
+            - name: APP_HOST
+              value: '127.0.0.1'
+            - name: APP_PORT
+              value: '8000'

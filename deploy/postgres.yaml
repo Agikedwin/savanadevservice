@@ -1,0 +1,71 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: savana-postgres
+  labels:
+    app: savana
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: savana
+    tier: postgres
+  clusterIP: None
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: savana-postgres-pvc
+  labels:
+    app: savana
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres
+  labels:
+    app: savana-postgres
+spec:
+  selector:
+    matchLabels:
+      app: savana
+      tier: postgres
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: savana
+        tier: postgres
+    spec:
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: savana-postgres-pvc
+      containers:
+        - name: postgres
+          image: postgres:15.2
+          ports:
+            - containerPort: 5432
+              name: postgres
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+          env:
+            - name: POSTGRES_DB
+              value: savanadb
+            - name: POSTGRES_USER
+              value: postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-password
+                  key: password

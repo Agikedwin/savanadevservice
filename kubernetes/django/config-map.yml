@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: savana-config
+data:
+  DEBUG: "True"
+  SAVANA_HOST: savana-app
+  DB_HOST: savanadb
+unix:///var/run/docker:
+  sock:

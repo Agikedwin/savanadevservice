@@ -1,0 +1,10 @@
+secretGenerator:
+  - name: db-password
+    literals:
+      - password=supersecretepasswordsomewhere
+  - name: savana
+    literals:
+      - secrete=secretekey123
+resources:
+  - postgres.yaml
+  - savana.yaml
