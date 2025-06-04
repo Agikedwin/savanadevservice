@@ -88,6 +88,6 @@ spec:
               mountPath: /vol/web
           env:
             - name: APP_HOST
-              value: '127.0.0.1'
+              value: '127.0.0.1,localhost,192.168.49.2'
             - name: APP_PORT
               value: '8000'

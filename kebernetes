@@ -7,10 +7,16 @@ sudo usermod -aG docker $USER && newgrp docker
 minikube start --driver=docker
 minikube dashboard
 
+-------------
+kubectl get services
+minikube service savana
+
+
 --------------
 kubectl apply -k deploy/
 kubectl get deployments
 kubectl get pods
+
 
 
 
