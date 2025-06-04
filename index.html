@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Savana Python (Django) Service Documentation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #3b3f58;
+      color: white;
+      padding: 20px 40px;
+      text-align: center;
+    }
+    main {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3, h4 {
+      color: #2a2f45;
+    }
+    code, pre {
+      background: #f0f0f0;
+      border-radius: 5px;
+      padding: 10px;
+      display: block;
+      overflow-x: auto;
+    }
+    a {
+      color: #007acc;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    section {
+      margin-bottom: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Savana Python (Django) Service Documentation</h1>
+    <p>API service that manages customers, products, product categories and orders.</p>
+  </header>
+
+  <main>
+    <section>
+      <h2>1. Project Overview</h2>
+      <p><strong>Project name:</strong> Savana Inventory Service</p>
+      <p><strong>Purpose:</strong> API service that manages customers, products, product categories and orders.</p>
+      <p><strong>Tech stack:</strong> Python, Django, PostgreSQL, GraphQL, OpenID Connect, and Discord.</p>
+      <pre><code># Django Sales Management System
+A web app for managing customers, products, and orders, built with Django and PostgreSQL.
+</code></pre>
+    </section>
+
+    <section>
+      <h2>2. Prerequisites</h2>
+      <p>List software and tools needed to run the project locally or on a server.</p>
+      <ul>
+        <li>Python 3.10+</li>
+        <li>Django 5.x</li>
+        <li>PostgreSQL / SQLite</li>
+        <li>Git and GitHub Actions</li>
+        <li>Virtual environment tool (venv)</li>
+        <li>Docker</li>
+        <li>Kubernetes (Minikube)</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. Installation and Setup</h2>
+      <h3>Local setup</h3>
+      <pre><code>Clone the repository
+git clone https://github.com/Agikedwin/savanadevservice
+cd savanadevservice
+
+Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate
+
+Install dependencies
+pip install -r requirements.txt
+
+Configure environment variables
+
+Create a .env file or set environment variables, e.g.:
+DJANGO_SECRET_KEY=your_secret_key
+DEBUG=True
+DATABASE_URL=postgres://user:password@localhost:5432/dbname
+EMAIL_BACKEND=django.core.mail.backends.smtp.EmailBackend
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_HOST_USER='YOUR EMAIL'
+EMAIL_HOST_PASSWORD=YOUR PASSWORD
+
+# Africastalking
+AFRICASTALKING_USERNAME=sandbox
+AFRICASTALKING_API_KEY = YOUR API KEY
+
+Apply migrations
+python manage.py migrate
+
+Create a superuser (optional)
+python manage.py createsuperuser
+
+Run the development server
+python manage.py runserver
+
+Open http://127.0.0.1:8000 in your browser.
+</code></pre>
+    </section>
+
+    <section>
+      <h3>Run the Application from a Docker Image</h3>
+      <pre><code>Install Docker and docker compose
+Obtain the docker-compose.yml file from the project files provided
+Save the docker-compose.yml in a directory of your choice
+Navigate to the dir e.g. cd /path/to/your/project
+Build and start the services:
+docker compose up --build -d
+
+NB: The image will be pulled from the Docker Hub registry and fire up the application
+</code></pre>
+    </section>
+
+    <section>
+      <h3>Run the Application and Deploy Using Kubernetes Minikube</h3>
+      <pre><code>Install kubectl (Kubernetes CLI)
+Install Minikube
+
+Start Minikube using command:
+minikube start --driver=docker
+
+Navigate to deploy folder then run:
+kubectl apply -k deploy/
+kubectl get services
+minikube service savana
+
+Copy and paste the URL provided to your browser
+</code></pre>
+    </section>
+
+    <section>
+      <h2>Login</h2>
+      <h3>Authorization and Authentication</h3>
+      <pre><code>Once the service is up and running, navigate to:
+http://IP_ADDRESS:8000/oauth2/login
+
+You will be directed to the Discord login page.
+Create the account if you don’t have one or use OpenID Connect providers e.g. Gmail.
+
+Login and click the "Authorize" button.
+The application will capture your details and save them in the app users database.
+
+Upon successful login, you will be redirected to the GraphQL API endpoint where you will be able to call the endpoints.
+URL: http://localhost:8000/graphql/
+</code></pre>
+    </section>
+
+    <section>
+      <h2>Consuming the API Endpoints</h2>
+      <h3>Mutation</h3>
+
+      <h4>Create Users</h4>
+      <pre><code>mutation{
+  createUser(name:"savana user",description:"Admin user",role:1){
+    user{
+      userId
+      name
+      role
+    }
+  }
+}</code></pre>
+
+      <h4>Create Customers</h4>
+      <pre><code>mutation{
+  createNewCustomer(customerContact:"0717569866",customerEmail:"savana@gmail.com",
+  customerName:"Savana Dev",customerType:"active", userId: 2){
+    customer{
+      customerName
+      user{
+        userId
+        name
+      }
+    }
+  }
+}</code></pre>
+
+      <h4>Create Product Category</h4>
+      <pre><code>mutation{
+  createCategory(categoryName:"Hardware",categoryType:"Durable",description:"Can last longer", userId:2){
+    category{
+      categoryId
+      categoryName
+      categoryType
+    }
+  }
+}</code></pre>
+
+      <h4>Create Products</h4>
+      <pre><code>mutation{
+  createProduct(categoryId:4, price:4500,productName:"Iron sheet",userId:2){
+    product{
+      productName
+      price
+    }
+  }
+}</code></pre>
+
+      <h4>Create Product Order | Make Orders</h4>
+      <pre><code>mutation{
+  createOrder(customerId:2,productId:4,userId:2){
+    order{
+      orderId
+      product{
+        productName
+        price
+      }
+    }
+  }
+}</code></pre>
+
+      <p><strong>Note:</strong> Once the order is placed, an email notification will be sent to the admin with the order details and an SMS sent to customers alerting them on the order placed.</p>
+    </section>
+
+    <section>
+      <h3>QUERIES</h3>
+
+      <h4>Return the Average Product Price for a Given Category</h4>
+      <pre><code>query{
+  averagePriceByCategory(categoryId:1)
+}</code></pre>
+
+      <h4>Other Queries</h4>
+      <pre><code>query{
+  allUsers{
+    userId
+    name
+  },
+
+  allProdCategories{
+    categoryId
+    categoryName
+    categoryType
+    description
+  },
+  customerById(id:1){
+    customerId
+  }
+}</code></pre>
+    </section>
+
+       <section>
+      <h2>📚 Data Models</h2>
+
+      <h3 class="model-title">👤 Users Model</h3>
+      <p>Represents users of the system, such as admins, salespeople, etc.</p>
+      <pre><code>class Users(models.Model):</code></pre>
+      <ul>
+        <li><strong>user_id:</strong> AutoField — Primary key, auto-incrementing ID for the user.</li>
+        <li><strong>name:</strong> CharField(max_length=200) — Full name of the user.</li>
+        <li><strong>username:</strong> CharField(max_length=200) — Unique login name.</li>
+        <li><strong>password:</strong> TextField — Encrypted or plain text password (⚠️ storing plain text passwords is not recommended).</li>
+        <li><strong>role:</strong> IntegerField — Role type of the user (could be admin, staff, etc.; use constants/enums for clarity).</li>
+        <li><strong>description:</strong> TextField — Optional extra information about the user.</li>
+      </ul>
+      <p><strong>Methods:</strong> <code>__str__</code>: Returns the user ID as string for easy display.</p>
+
+      <h3 class="model-title">👥 Customers Model</h3>
+      <p>Stores information about customers who place orders.</p>
+      <pre><code>class Customers(models.Model):</code></pre>
+      <ul>
+        <li><strong>customer_id:</strong> AutoField — Primary key, auto-incrementing.</li>
+        <li><strong>customer_name:</strong> CharField(max_length=255) — Full name of the customer.</li>
+        <li><strong>customer_contact:</strong> CharField(max_length=13) — Phone number or other contact info.</li>
+        <li><strong>customer_email:</strong> EmailField — Email address.</li>
+        <li><strong>customer_type:</strong> CharField(max_length=255, default=1) — Type/category of customer (e.g., "Retail", "Wholesale").</li>
+        <li><strong>date_created:</strong> DateTimeField(auto_now_add=True) — Automatically set when record is created.</li>
+        <li><strong>user:</strong> ForeignKey(Users) — The user who created or manages this customer.</li>
+      </ul>
+      <p><strong>Methods:</strong> <code>__str__</code>: Returns the customer ID as string.</p>
+
+      <h3 class="model-title">🗂️ ProductCategory Model</h3>
+      <p>Defines categories for organizing products.</p>
+      <pre><code>class ProductCategory(models.Model):</code></pre>
+      <ul>
+        <li><strong>category_id:</strong> AutoField — Primary key.</li>
+        <li><strong>category_name:</strong> CharField(max_length=255) — Name of the category.</li>
+        <li><strong>category_type:</strong> CharField(max_length=255) — Type or classification of the category.</li>
+        <li><strong>description:</strong> TextField — Description of the category.</li>
+        <li><strong>user:</strong> ForeignKey(Users) — User who created the category.</li>
+        <li><strong>date_created:</strong> DateTimeField(auto_now_add=True) — Timestamp when created.</li>
+      </ul>
+      <p><strong>Methods:</strong> <code>__str__</code>: Returns the category ID as string.</p>
+
+      <h3 class="model-title">📦 Products Model</h3>
+      <p>Represents individual products available for order.</p>
+      <pre><code>class Products(models.Model):</code></pre>
+      <ul>
+        <li><strong>product_id:</strong> AutoField — Primary key.</li>
+        <li><strong>category:</strong> ForeignKey(ProductCategory) — Category to which the product belongs.</li>
+        <li><strong>product_name:</strong> CharField(max_length=255) — Name of the product.</li>
+        <li><strong>user:</strong> ForeignKey(Users) — User who added the product.</li>
+        <li><strong>price:</strong> IntegerField(default=0) — Price of the product (consider using DecimalField for monetary values).</li>
+        <li><strong>date_created:</strong> DateTimeField(auto_now_add=True) — When the product was added.</li>
+      </ul>
+      <p><strong>Methods:</strong> <code>__str__</code>: Returns the product ID as string.</p>
+
+      <h3 class="model-title">🧾 Orders Model</h3>
+      <p>Tracks product orders placed by customers.</p>
+      <pre><code>class Orders(models.Model):</code></pre>
+      <ul>
+        <li><strong>order_id:</strong> AutoField — Primary key.</li>
+        <li><strong>product:</strong> ForeignKey(Products) — Product being ordered.</li>
+        <li><strong>customer:</strong> ForeignKey(Customers) — Customer who placed the order.</li>
+        <li><strong>user:</strong> ForeignKey(Users) — User who processed or created the order.</li>
+        <li><strong>date_created:</strong> DateTimeField(auto_now_add=True) — When the order was created.</li>
+      </ul>
+      <p><strong>Methods:</strong> <code>__str__</code>: Returns the order ID as string.</p>
+
+      <h3 class="model-title">🔁 Relationships Overview</h3>
+      <ul>
+        <li><strong>Users</strong> are related to <strong>Customers</strong>, <strong>ProductCategory</strong>, <strong>Products</strong>, and <strong>Orders</strong>.</li>
+        <li><strong>Products</strong> belong to <strong>ProductCategory</strong>.</li>
+        <li><strong>Orders</strong> are linked to <strong>Customers</strong>, <strong>Products</strong>, and the <strong>User</strong> who created them.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Contact</h2>
+      <p>GitHub Repository: <a href="https://github.com/Agikedwin/savanadevservice" target="_blank">https://github.com/Agikedwin/savanadevservice</a></p>
+    </section>
+  </main>
+</body>
+</html>

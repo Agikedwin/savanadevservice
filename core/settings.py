@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import dj_database_url
+from decouple import config, Csv
 
 from django.conf.global_settings import AUTHENTICATION_BACKENDS, EMAIL_BACKEND
 
@@ -23,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gc3%5ehoj&^w!a5x+*nx(xgbrp7(bly^oz0vz^$=10(95c+iw4'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = []
+
 
 
 # Application definition
@@ -97,7 +98,7 @@ DATABASES = {
     }
 """
 
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -108,23 +109,25 @@ DATABASES = {
         'PORT':'5432'
     }
 }
+
+
+
+
 """
-
-
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://neondb_owner:npg_GUb19cMAuZPQ@ep-ancient-dream-a63dcbrw-pooler.us-west-2.aws.neon.tech/savanadb?sslmode=require',
+        default=config('DATABASE_URL'),
         conn_max_age=600,
-        ssl_require=True  # Important: Neon requires SSL
+        ssl_require=True
     ),
-
 }
+"""
+
 # Add test config inside the default DB
 DATABASES['default']['TEST'] = {
-    'NAME': 'test_savanadb',  # This DB must already exist in Neon
+    'NAME': config('TEST_DATABASE_NAME'),
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -158,17 +161,16 @@ ACCOUNT_AUTHENTICATION_METHOD ='email'
 ACCOUNT_EMAIL_REQUIRED =True
 
 # settings.py
-AFRICASTALKING_USERNAME = 'sandbox'  # or your live username
-AFRICASTALKING_API_KEY = 'atsk_7fe054316774e88a717aa732d165642334a8327ec03a98382e81d14f557b7616d40bb611'
+AFRICASTALKING_USERNAME = config('AFRICASTALKING_USERNAME')
+AFRICASTALKING_API_KEY = config('AFRICASTALKING_API_KEY')
 #AFRICASTALKING_PHONE = '+254711XXXYYY'  # Optional: default sender ID
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = 'agikedwin@gmail.com'
-EMAIL_HOST_PASSWORD = 'dpbp avql kftq emle'  # Not your Gmail password!
+EMAIL_BACKEND = config('EMAIL_BACKEND')
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD') # Not your Gmail password!
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.49.2','0.0.0.0']
 
