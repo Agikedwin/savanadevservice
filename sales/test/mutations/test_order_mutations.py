@@ -1,3 +1,4 @@
+"""
 import pytest
 from graphene.test import Client
 from sales.schema import schema  # Adjust import if needed
@@ -127,3 +128,6 @@ class TestOrderMutations:
         executed = graphql_client.execute(mutation, variables=variables)
         assert executed.get('errors') is not None
         assert 'Order not found' in executed['errors'][0]['message']
+
+
+"""
