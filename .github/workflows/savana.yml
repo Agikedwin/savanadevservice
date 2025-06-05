@@ -32,7 +32,7 @@ jobs:
       - name: Set up python latest
         uses: actions/setup-python@v4
         with:
-            #python-version: '3.12'
+            python-version: '3.12'
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
@@ -50,7 +50,6 @@ jobs:
       - name: Savana application run tests
         run:
           pytest
-
 
 
 
