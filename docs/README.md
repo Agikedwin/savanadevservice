@@ -4,14 +4,15 @@ Copy
 Edit
 # 🧾 Savana Python (Django) Service Documentation
 
-A backend API service for managing customers, products, product categories, and orders, built with Django and PostgreSQL. Includes GraphQL endpoints, Discord-based authentication, and optional Docker + Kubernetes deployment.
+A backend API service for managing customers, products, product categories, and orders, authorization and authentication built with Django and PostgreSQL. Includes GraphQL endpoints, Discord-based authentication, and optional Docker + Kubernetes deployment.
 
 ---
 
 ## 📦 Project Overview
 
 **Project Name:** Savana Inventory Service  
-**Purpose:** API service that manages customers, products, product categories and orders.  
+**Purpose:** A backend API service for managing customers, products, product categories, and orders, authorization and authentication built with Django and PostgreSQL. GraphQL endpoints, Discord-based authentication, and  Docker + Kubernetes deployment.
+
 **Tech Stack:** Python, Django, PostgreSQL, GraphQL, OpenID Connect, Discord OAuth2
 
 > A web app for managing customers, products, and orders, built with Django and PostgreSQL.

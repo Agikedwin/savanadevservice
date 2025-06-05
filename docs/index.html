@@ -85,14 +85,15 @@ A web app for managing customers, products, and orders, built with Django and Po
 git clone https://github.com/Agikedwin/savanadevservice
 cd savanadevservice
 
-Create and activate a virtual environment
+        <ul><li><b>Create and activate a virtual environment</b></li></ul>
 python -m venv venv
 source venv/bin/activate
 
-Install dependencies
-pip install -r requirements.txt
+        <ul><li><b>Install dependencies</b></li></ul>
 
-Configure environment variables
+pip install -r requirements.txt
+<ul><li><b>Configure environment variables</b></li></ul>
+
 
 Create a .env file or set environment variables, e.g.:
 DJANGO_SECRET_KEY=your_secret_key
@@ -109,13 +110,16 @@ EMAIL_HOST_PASSWORD=YOUR PASSWORD
 AFRICASTALKING_USERNAME=sandbox
 AFRICASTALKING_API_KEY = YOUR API KEY
 
-Apply migrations
+        <ul><li><b>Apply migrations</b></li></ul>
+
 python manage.py migrate
 
-Create a superuser (optional)
+
+        <ul><li><b>Create a superuser (optional)</b></li></ul>
 python manage.py createsuperuser
 
-Run the development server
+        <ul><li><b>Run the development server</b></li></ul>
+
 python manage.py runserver
 
 Open http://127.0.0.1:8000 in your browser.
@@ -336,6 +340,17 @@ URL: http://localhost:8000/graphql/
         <li><strong>Products</strong> belong to <strong>ProductCategory</strong>.</li>
         <li><strong>Orders</strong> are linked to <strong>Customers</strong>, <strong>Products</strong>, and the <strong>User</strong> who created them.</li>
       </ul>
+    </section>
+
+    <section>
+
+      <h3>Run test</h3>
+      <p>run pytest</p>
+
+      <h3>coverage checking</h3>
+      <p>pytest --cov=sales --cov-report=term-missing</p>
+      <p>pytest --cov=sales --cov-report=html</p>
+
     </section>
 
     <section>
