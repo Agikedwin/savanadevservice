@@ -14,6 +14,7 @@ import datetime as ctime
 from pathlib import Path
 import dj_database_url
 from decouple import config, Csv
+from datetime import datetime
 
 from django.conf.global_settings import AUTHENTICATION_BACKENDS, EMAIL_BACKEND
 
@@ -127,10 +128,11 @@ DATABASES = {
     ),
 }
 
+print(f" time:::{datetime.now().minute}")
 
 # Add test config inside the default DB
 DATABASES['default']['TEST'] = {
-    'NAME': config('TEST_DATABASE_NAME')+ctime.time.min,
+    'NAME': config('TEST_DATABASE_NAME')+str(datetime.now().second),
 }
 
 # Password validation
