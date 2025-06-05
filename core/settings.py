@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+import datetime as ctime
 
 from pathlib import Path
 import dj_database_url
@@ -129,7 +130,7 @@ DATABASES = {
 
 # Add test config inside the default DB
 DATABASES['default']['TEST'] = {
-    'NAME': config('TEST_DATABASE_NAME'),
+    'NAME': config('TEST_DATABASE_NAME')+ctime.time.min,
 }
 
 # Password validation

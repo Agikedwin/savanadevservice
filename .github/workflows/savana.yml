@@ -48,7 +48,35 @@ jobs:
           pip install flake8
           flake8
       - name: Run tests with term report
-        run: pytest --cov=sales --cov-report=term-missing
+        run:
+          pytest --cov=sales --cov-report=term-missing
+
+      - name: Install kubectl
+        run:
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+          chmod +x kubectl
+          sudo mv kubectl /usr/local/bin/kubectl
+      - name: Install Minikube
+        run:
+          curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+          sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+      - name: Start Minikube
+        run:
+          minikube start --driver=docker
+
+      - name: Deploy to kubernetes
+        run:
+          kubectl apply -k deploy/
+
+
+
+
+
+
+
+
+
 
 
 
