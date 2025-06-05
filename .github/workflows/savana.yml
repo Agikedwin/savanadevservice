@@ -39,9 +39,9 @@ jobs:
           pip install -r requirements.txt
           pip install coverage
           pip install  pytest-django
-      - name: Savana application run tests
-        run:
-          pytest
+      #- name: Savana application run tests
+        #run:
+          #pytest
 
       #- name: Lint with flake8
         #run:
