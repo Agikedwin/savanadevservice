@@ -131,7 +131,7 @@ DATABASES = {
 
 # Add test config inside the default DB
 DATABASES['default']['TEST'] = {
-    'NAME': config('TEST_DATABASE_NAME')+str(datetime.now().second),
+    'NAME': config('TEST_DATABASE_NAME'),
 }
 
 # Password validation
