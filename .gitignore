@@ -83,7 +83,7 @@ docs/_build/
 
 # PyBuilder
 target/
-
+kebernetes.txt
 
 ### Django ###
 *.log

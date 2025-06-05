@@ -21,6 +21,7 @@ def get_authenticated_user(request: HttpRequest):
 def discord_login(request: HttpRequest):
     return redirect(auth_url_discord)
 
+@login_required(login_url='/graphql')
 def discord_login_redirect(request: HttpRequest):
     #Get the code
     code = request.GET.get('code')
