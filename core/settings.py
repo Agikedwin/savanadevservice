@@ -128,7 +128,6 @@ DATABASES = {
     ),
 }
 
-print(f" time:::{datetime.now().minute}")
 
 # Add test config inside the default DB
 DATABASES['default']['TEST'] = {
