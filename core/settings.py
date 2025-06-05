@@ -98,7 +98,7 @@ DATABASES = {
     }
 """
 
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -110,10 +110,13 @@ DATABASES = {
     }
 }
 
-
-
-
 """
+
+
+
+
+
+
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -122,7 +125,7 @@ DATABASES = {
         ssl_require=True
     ),
 }
-"""
+
 
 # Add test config inside the default DB
 DATABASES['default']['TEST'] = {
