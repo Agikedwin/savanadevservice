@@ -8,11 +8,11 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -29,59 +29,43 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: edvinag73/savanaapp:latest
+
       - name: Set up python latest
         uses: actions/setup-python@v4
         with:
-            python-version: '3.12'
+          python-version: '3.12'
+
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install coverage
-          pip install  pytest-django
+          pip install pytest-django
+
       - name: Savana application run tests
-        run:
-          pytest
+        run: pytest
 
       - name: Lint with flake8
-        run:
+        run: |
           pip install flake8
           flake8
+
       - name: Run tests with term report
-        run:
-          pytest --cov=sales --cov-report=term-missing
+        run: pytest --cov=sales --cov-report=term-missing
 
       - name: Install kubectl
-        run:
+        run: |
           curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
           chmod +x kubectl
           sudo mv kubectl /usr/local/bin/kubectl
+
       - name: Install Minikube
-        run:
+        run: |
           curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
           sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
       - name: Start Minikube
-        run:
-          minikube start --driver=docker
+        run: minikube start --driver=docker
 
       - name: Deploy to kubernetes
-        run:
-          kubectl apply -k deploy/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        run: kubectl apply -k deploy/
